@@ -1,0 +1,62 @@
+{
+  "plugin": {
+    "name": "Hindsight",
+    "description": "Key metrics of your Hindsight agent memory: service health, memories, observations, links and the consolidation and operations queues."
+  },
+  "tab": {
+    "title": "Hindsight",
+    "bank": "Memory bank",
+    "refresh": "Refresh",
+    "updated": "Updated {{time}}",
+    "never": "never",
+    "status": {
+      "title": "Service",
+      "up": "Healthy",
+      "down": "Unreachable",
+      "latency": "{{ms}} ms",
+      "version": "API {{version}}"
+    },
+    "metrics": {
+      "memories": "Memories",
+      "observations": "Observations",
+      "documents": "Documents",
+      "links": "Links",
+      "pendingConsolidation": "Awaiting consolidation",
+      "failedConsolidation": "Failed consolidation",
+      "pendingOperations": "Pending operations",
+      "failedOperations": "Failed operations",
+      "lastWrite": "Last memory write",
+      "lastConsolidated": "Last consolidation"
+    },
+    "factTypes": "Memories by type",
+    "linkTypes": "Links by type",
+    "operations": "Operations by status",
+    "empty": "No data for this bank yet.",
+    "statsError": "Hindsight rejected the request for this bank. Check the API key and the bank name.",
+    "notConfigured": "Hindsight is not set up. An admin can enter the URL and API key in Settings, under Hindsight.",
+    "error": "Could not reach Hindsight."
+  },
+  "permissions": {
+    "view": {
+      "title": "View Hindsight metrics",
+      "description": "Open the Hindsight tab and read memory metrics."
+    }
+  },
+  "settings": {
+    "admin": {
+      "url": {
+        "label": "Hindsight URL",
+        "description": "Base address of the Hindsight API, reachable from the Termix server.",
+        "placeholder": "https://hindsight.example.ts.net:8888"
+      },
+      "apiKey": {
+        "label": "API key",
+        "description": "Bearer key sent to Hindsight. Leave empty if Hindsight has no authentication."
+      },
+      "bank": {
+        "label": "Default bank",
+        "description": "The memory bank shown first in the tab."
+      }
+    }
+  }
+}

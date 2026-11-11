@@ -1,0 +1,71 @@
+{
+  "id": "hindsight",
+  "name": "Hindsight",
+  "version": "1.0.0",
+  "description": "Key metrics of your Hindsight agent memory: service health, memories, observations, links and the consolidation and operations queues.",
+  "author": {
+    "name": "Frankieslab Homelab",
+    "url": "https://github.com/Frankieslab-homelab"
+  },
+  "license": "Apache-2.0",
+  "repository": "https://github.com/Frankieslab-homelab/termix-plugin-hindsight",
+  "docs": "https://github.com/Frankieslab-homelab/termix-plugin-hindsight/tree/main/docs",
+  "category": "Monitoring",
+  "icon": "Brain",
+  "features": [
+    "Service health, version and latency",
+    "Memories, observations, documents and links per bank",
+    "Consolidation and background operation queues",
+    "Switch between memory banks"
+  ],
+  "env": [],
+  "engine": {
+    "termix": ">=26.11.1-0",
+    "api": "^1.13"
+  },
+  "capabilities": ["network:serve", "network:outbound", "ui:surface"],
+  "contributes": {
+    "tabs": [
+      {
+        "id": "hindsight",
+        "titleKey": "tab.title",
+        "icon": "Brain",
+        "openFrom": ["rail"]
+      }
+    ],
+    "permissions": [
+      {
+        "name": "view",
+        "titleKey": "permissions.view.title",
+        "descriptionKey": "permissions.view.description",
+        "defaultRoles": ["admin", "user"]
+      }
+    ],
+    "settings": {
+      "admin": [
+        {
+          "key": "url",
+          "type": "string",
+          "labelKey": "settings.admin.url.label",
+          "descriptionKey": "settings.admin.url.description",
+          "placeholderKey": "settings.admin.url.placeholder"
+        },
+        {
+          "key": "apiKey",
+          "type": "secret",
+          "labelKey": "settings.admin.apiKey.label",
+          "descriptionKey": "settings.admin.apiKey.description"
+        },
+        {
+          "key": "bank",
+          "type": "string",
+          "labelKey": "settings.admin.bank.label",
+          "descriptionKey": "settings.admin.bank.description",
+          "default": "default"
+        }
+      ]
+    }
+  },
+  "locales": "locales",
+  "platforms": ["linux", "win32", "darwin"]
+}
