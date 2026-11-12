@@ -1,6 +1,6 @@
 # Changelog
 
-## 1.0.0
+## 0.0.1
 
 ### Added
 
@@ -8,3 +8,4 @@
 - Memory, observation, document and link counts per bank, with a bank switcher
 - Consolidation and background operation queues, with failures highlighted
 - Admin settings for the Hindsight URL, API key and default bank
+- Live homelab verification and smoke-test instructions for both test banks

@@ -24,8 +24,8 @@ You need Node 24 and a Termix server you are an admin on. Install the packages, 
 npm install
 npm test
 npm run typecheck
-npm run validate
 npm run build
+npm run validate
 npm run format:check
 ```
 
@@ -36,6 +36,8 @@ npx termix-plugin dev --server https://termix.example.ts.net --key tmx_your_key
 ```
 
 `npm run pack` writes `hindsight-<version>.tmxplug`.
+
+For live verification, follow the [homelab smoke test](docs/index.md#homelab-smoke-test).
 
 ## Releasing
 

@@ -1,7 +1,7 @@
 {
   "id": "hindsight",
   "name": "Hindsight",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "description": "Key metrics of your Hindsight agent memory: service health, memories, observations, links and the consolidation and operations queues.",
   "author": {
     "name": "Frankieslab Homelab",
