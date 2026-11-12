@@ -51,3 +51,5 @@ aren't obvious from the code, and anything that has bitten you before.
 - An unreachable service answers 200 with `health.ok: false`; a rejected stats call sets `statsError` so a bad key or bank is not shown as an outage.
 - Frontend polls every 30 seconds while the tab is visible.
 - The shared rail and tab icon maps the SDK's `size` prop to SVG width and height; SVG does not support a `size` attribute.
+- Mobile: `contributes.mobile` exposes the existing `hindsight` tab as a phone/tablet WebView. No separate mobile bundle or shell access; all data comes through the plugin's own API.
+- The tab uses a height-bounded SDK `PanelShell` scroll body because the mobile WebView does not provide page scrolling.

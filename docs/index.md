@@ -21,6 +21,23 @@ The tab refreshes every 30 seconds while it is open. Pick another bank from the 
 
 Using the tab needs the View Hindsight metrics permission, which admins and users get by default. Every request goes through the Termix server, so users never see the Hindsight address or key.
 
+## iOS and other mobile devices
+
+Install plugin version 0.2.0 or later on your server. In the Termix mobile app
+2.0.0 or later, link that server and open **Settings > Plugins**. Hindsight
+should show **Web view** and can be opened there or under **From your server**
+on Home or Tools. Phones and tablets use the same metrics screen as the web app.
+
+The app needs plugin API 1.13 or later within the 1.x line; if it asks for an
+update, update the app before opening Hindsight. The screen uses the app's
+authenticated connection to the Termix server, not a direct connection to
+Hindsight. Configure the Hindsight URL and key on the server as described above.
+
+To verify on a device, open the view, switch banks, tap **Refresh**, and check
+that the controls fit without horizontal scrolling. Turn the plugin off on the
+server and refresh the app's plugin list to confirm the view is unavailable;
+enable it again and refresh to restore it.
+
 ## What it calls
 
 Only the URL an admin entered, and only read endpoints: `GET /health`, `GET /version`, `GET /v1/default/banks` and `GET /v1/default/banks/{bank}/stats`. Nothing is written to Hindsight and nothing is sent anywhere else.

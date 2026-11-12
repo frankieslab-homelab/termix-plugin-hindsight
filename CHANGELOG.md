@@ -1,5 +1,16 @@
 # Changelog
 
+## 0.2.0
+
+### Added
+
+- Hindsight WebView in the Termix mobile app for phones and tablets
+
+### Fixed
+
+- Bank selector and refresh controls fit narrow mobile screens
+- Metrics scroll within the mobile WebView instead of relying on page scrolling
+
 ## 0.0.1
 
 ### Added

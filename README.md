@@ -9,8 +9,17 @@ A [Termix](https://github.com/Termix-SSH/Termix) plugin that shows the key metri
 - Consolidation and background operation queues, with failures highlighted
 - Read only: it only calls `GET /health`, `GET /version`, `GET /v1/default/banks` and `GET /v1/default/banks/{bank}/stats`
 - The API key stays on the Termix server and is never sent to the browser
+- Phone and tablet access through the Termix mobile app's WebView
 
 See [docs/index.md](docs/index.md) for setup and usage.
+
+## Mobile app
+
+Version 0.2.0 and later exposes Hindsight as a WebView in the Termix mobile app
+2.0.0 or later, including iOS. Link your Termix server, then open Hindsight under
+**From your server** or **Settings > Plugins**. The app must support plugin API
+1.13 or later in the 1.x line. The same server-side settings and permissions
+apply; no Hindsight key is entered on the phone.
 
 ## Install
 

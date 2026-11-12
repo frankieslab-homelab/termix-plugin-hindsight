@@ -1,5 +1,5 @@
 import { afterEach, describe, expect, it, vi } from "vitest";
-import { render, screen } from "@testing-library/react";
+import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import {
   renderWithApp,
   type RenderedPluginApp,
@@ -20,6 +20,18 @@ afterEach(async () => {
 });
 
 describe(`${manifest.id} activate`, () => {
+  it("offers the existing tab as a phone and tablet WebView", () => {
+    expect(manifestJson.contributes.mobile).toEqual({
+      mode: "webview",
+      views: ["hindsight"],
+      sizes: ["phone", "tablet"],
+    });
+    expect(manifestJson.contributes.tabs.map((tab) => tab.id)).toContain(
+      manifestJson.contributes.mobile.views[0],
+    );
+    expect(manifestJson.engine.api).toBe("^1.13");
+  });
+
   it("registers the rail item and tab", async () => {
     rendered = await renderWithApp(plugin, { manifest, locales });
     expect(rendered.registered.tabs()).toEqual(["hindsight"]);
@@ -108,5 +120,65 @@ describe(`${manifest.id} activate`, () => {
     });
     rendered.renderTab("hindsight", { isVisible: true });
     expect(await screen.findByText(locales.tab.notConfigured)).toBeTruthy();
+  });
+
+  it("provides a bounded SDK scroll body for the mobile WebView", async () => {
+    rendered = await renderWithApp(plugin, {
+      manifest,
+      locales,
+      api: {
+        get: vi.fn(async () => {
+          throw { response: { status: 409 } };
+        }),
+      } as never,
+    });
+    rendered.renderTab("hindsight", { isVisible: true });
+    const message = await screen.findByText(locales.tab.notConfigured);
+    const scrollBody = message.closest(".overflow-y-auto");
+    expect(scrollBody).not.toBeNull();
+    expect(scrollBody?.classList.contains("min-h-0")).toBe(true);
+    expect(scrollBody?.closest(".h-full")).not.toBeNull();
+    expect(message.parentElement?.classList.contains("shrink-0")).toBe(true);
+  });
+
+  it("switches banks and refreshes using only the plugin API", async () => {
+    const get = vi.fn(
+      async (
+        _path: string,
+        options?: {
+          params?: { bank: string };
+        },
+      ) => ({
+        data: {
+          bank: options?.params?.bank ?? "bank-a",
+          health: { ok: true, latencyMs: 12 },
+          version: "0.9.0",
+          stats: null,
+          statsError: false,
+          banks: [
+            { bank_id: "bank-a", name: null },
+            { bank_id: "bank-b", name: null },
+          ],
+        },
+      }),
+    );
+    rendered = await renderWithApp(plugin, {
+      manifest,
+      locales,
+      api: { get } as never,
+    });
+    rendered.renderTab("hindsight", { isVisible: true });
+    fireEvent.change(await screen.findByRole("combobox"), {
+      target: { value: "bank-b" },
+    });
+    await waitFor(() =>
+      expect(get).toHaveBeenLastCalledWith("/metrics", {
+        params: { bank: "bank-b" },
+      }),
+    );
+    const calls = get.mock.calls.length;
+    fireEvent.click(screen.getByRole("button", { name: locales.tab.refresh }));
+    await waitFor(() => expect(get).toHaveBeenCalledTimes(calls + 1));
+    expect(get.mock.calls.every(([path]) => path === "/metrics")).toBe(true);
   });
 });
