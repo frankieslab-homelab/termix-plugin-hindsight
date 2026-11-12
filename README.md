@@ -13,6 +13,20 @@ A [Termix](https://github.com/Termix-SSH/Termix) plugin that shows the key metri
 
 See [docs/index.md](docs/index.md) for setup and usage.
 
+## Screenshots
+
+### Desktop
+
+Hindsight metrics for the `homelab` bank in Termix, with browser chrome and server details excluded.
+
+![Hindsight desktop dashboard showing health and metrics for the homelab bank](docs/images/hindsight-desktop.png)
+
+### Mobile
+
+The same bank in the Termix mobile app.
+
+<img src="docs/images/hindsight-mobile.png" alt="Hindsight mobile WebView showing the homelab bank and its metrics" width="384">
+
 ## Mobile app
 
 Version 0.2.0 and later exposes Hindsight as a WebView in the Termix mobile app
