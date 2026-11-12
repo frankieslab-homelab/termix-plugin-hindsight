@@ -47,7 +47,7 @@
       "url": {
         "label": "Hindsight URL",
         "description": "Base address of the Hindsight API, reachable from the Termix server.",
-        "placeholder": "https://hindsight.example.ts.net:8888"
+        "placeholder": "https://hindsight.example.com:8888"
       },
       "apiKey": {
         "label": "API key",

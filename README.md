@@ -32,12 +32,12 @@ npm run format:check
 To try it against a real server, turn on Plugin developer mode in Termix, make an API key under Settings, API keys, and run:
 
 ```bash
-npx termix-plugin dev --server https://termix.example.ts.net --key tmx_your_key
+npx termix-plugin dev --server https://termix.example.com --key tmx_your_key
 ```
 
 `npm run pack` writes `hindsight-<version>.tmxplug`.
 
-For live verification, follow the [homelab smoke test](docs/index.md#homelab-smoke-test).
+For live verification, follow the [deployment smoke test](docs/index.md#deployment-smoke-test).
 
 ## Releasing
 

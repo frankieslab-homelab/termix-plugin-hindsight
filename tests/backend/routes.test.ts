@@ -13,7 +13,7 @@ import { activate } from "../../src/backend/index.js";
 const manifest = manifestJson as unknown as PluginManifest;
 
 const stats = {
-  bank_id: "frankie",
+  bank_id: "bank-a",
   total_nodes: 42,
   total_links: 100,
   total_documents: 7,
@@ -68,7 +68,7 @@ beforeEach(() => {
     if (url.endsWith("/version")) return json({ api_version: "0.9.0" });
     if (url.endsWith("/v1/default/banks"))
       return json({
-        banks: [{ bank_id: "frankie", name: null, fact_count: 42 }],
+        banks: [{ bank_id: "bank-a", name: null, fact_count: 42 }],
       });
     if (url.endsWith("/stats")) return json(stats);
     return json({}, 404);
@@ -84,7 +84,7 @@ describe("metrics route", () => {
     await start({
       url: "https://hs.example:8888/",
       apiKey: "k",
-      bank: "frankie",
+      bank: "bank-a",
     });
 
     const { status, body } = await get("/metrics");
@@ -94,21 +94,21 @@ describe("metrics route", () => {
     expect(body.version).toBe("0.9.0");
     expect(body.stats.total_nodes).toBe(42);
     expect(body.banks).toEqual([
-      { bank_id: "frankie", name: null, fact_count: 42 },
+      { bank_id: "bank-a", name: null, fact_count: 42 },
     ]);
     const statsCall = fetchMock.mock.calls.find(([u]) => u.endsWith("/stats"))!;
     expect(statsCall[0]).toBe(
-      "https://hs.example:8888/v1/default/banks/frankie/stats",
+      "https://hs.example:8888/v1/default/banks/bank-a/stats",
     );
     expect(statsCall[1].headers.authorization).toBe("Bearer k");
     expect(statsCall[1].allowPrivateHosts).toEqual(["hs.example"]);
   });
 
   it("asks for the bank in the query instead of the default", async () => {
-    await start({ url: "https://hs.example", bank: "frankie" });
-    await get("/metrics?bank=homelab");
+    await start({ url: "https://hs.example", bank: "bank-a" });
+    await get("/metrics?bank=bank-b");
     expect(
-      fetchMock.mock.calls.some(([u]) => u.endsWith("/banks/homelab/stats")),
+      fetchMock.mock.calls.some(([u]) => u.endsWith("/banks/bank-b/stats")),
     ).toBe(true);
   });
 

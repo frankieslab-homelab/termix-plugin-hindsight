@@ -71,11 +71,11 @@ describe(`${manifest.id} activate`, () => {
       api: {
         get: vi.fn(async () => ({
           data: {
-            bank: "frankie",
+            bank: "bank-a",
             health: { ok: true, latencyMs: 12 },
             version: "0.9.0",
             statsError: false,
-            banks: [{ bank_id: "frankie", name: null }],
+            banks: [{ bank_id: "bank-a", name: null }],
             stats: {
               total_nodes: 1234,
               total_links: 5,

@@ -4,7 +4,7 @@ Hindsight adds a tab that shows the key metrics of your [Hindsight](https://hind
 
 1. Install Hindsight from the Plugins tab.
 2. An admin opens Settings, then Hindsight, and sets:
-   - **Hindsight URL**: the base address of the Hindsight API, for example `https://hindsight.example.ts.net:8888`. It must be reachable from the Termix server, not from your browser. Private and tailnet addresses are allowed for this one host only.
+   - **Hindsight URL**: the base address of the Hindsight API, for example `https://hindsight.example.com:8888`. It must be reachable from the Termix server, not from your browser. Private and tailnet addresses are allowed for this one host only.
    - **API key**: the bearer key Hindsight expects. It is stored encrypted and never sent to the browser. Leave it empty if Hindsight has no authentication.
    - **Default bank**: the memory bank shown first.
 3. Open the Hindsight tab from the sidebar.
@@ -25,15 +25,16 @@ Using the tab needs the View Hindsight metrics permission, which admins and user
 
 Only the URL an admin entered, and only read endpoints: `GET /health`, `GET /version`, `GET /v1/default/banks` and `GET /v1/default/banks/{bank}/stats`. Nothing is written to Hindsight and nothing is sent anywhere else.
 
-## Homelab smoke test
+## Deployment smoke test
 
 The connection must work from inside the Termix container. A successful request
 from your laptop does not establish server connectivity. In particular,
 Tailscale userspace networking does not give Docker tailnet DNS or routing.
-The homelab's `pmv-termix-lxc` deployment provides a Docker-host TCP relay using
-`tailscale nc`; it preserves the Hindsight HTTPS hostname and certificate
-verification. Do not work around connectivity failures by disabling TLS checks
-or exposing Hindsight on the LAN.
+If you use that networking mode, arrange a server-side route or a narrowly
+scoped TCP relay to the Hindsight service. Preserve the configured HTTPS hostname
+and certificate verification, and restrict relay access to the Termix container.
+Do not work around connectivity failures by disabling TLS checks or exposing
+Hindsight to an untrusted network.
 
 1. Build before validating a fresh checkout, then run `npm run pack`.
 2. Enable **Plugin developer mode** under **Settings > General** and use
@@ -41,7 +42,7 @@ or exposing Hindsight on the LAN.
 3. Configure the URL and default bank. Enter the key directly in the secret
    setting, never in source, shell arguments or a committed file.
 4. Open Hindsight. Confirm **Healthy**, the API version and bank metrics.
-5. Switch between `frankie` and `homelab`. Check the cards and breakdowns change
+5. Switch between two of your banks. Check the cards and breakdowns change
    and **Refresh** loads the selected bank.
 6. Leave the tab visible and confirm a metrics request roughly every 30 seconds.
    Switch to Settings and confirm polling stops; return and confirm it resumes.
@@ -49,4 +50,4 @@ or exposing Hindsight on the LAN.
    The metrics response must contain no API key or configured service address.
 8. Turn developer mode off again when finished.
 
-Verified against Termix 26.11.1 and Hindsight API 0.10.2 with both test banks.
+Verified against Termix 26.11.1 and Hindsight API 0.10.2 with two banks.
