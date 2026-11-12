@@ -1,5 +1,11 @@
 {
   "extends": ["@commitlint/config-conventional"],
+  "parserPreset": {
+    "parserOpts": {
+      "headerPattern": "^([A-Z][A-Z0-9]*-[0-9]+) \\[([a-z]+)\\] (.+)$",
+      "headerCorrespondence": ["scope", "type", "subject"]
+    }
+  },
   "rules": {
     "subject-case": [0]
   }

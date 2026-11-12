@@ -33,14 +33,24 @@ interface Metrics {
   banks: { bank_id: string; name: string | null }[];
 }
 
-function BrainIcon(props: { className?: string }) {
+function BrainIcon({
+  size = 24,
+  strokeWidth = 2,
+  ...props
+}: {
+  className?: string;
+  size?: number | string;
+  strokeWidth?: number | string;
+}) {
   return (
     <svg
       {...props}
+      width={size}
+      height={size}
       viewBox="0 0 24 24"
       fill="none"
       stroke="currentColor"
-      strokeWidth={2}
+      strokeWidth={strokeWidth}
       strokeLinecap="round"
       strokeLinejoin="round"
     >

@@ -50,3 +50,4 @@ aren't obvious from the code, and anything that has bitten you before.
 - The Hindsight host is usually private (tailnet), so `allowPrivateHosts` lists only the admin configured hostname. Bank ids are validated before they go into a URL path.
 - An unreachable service answers 200 with `health.ok: false`; a rejected stats call sets `statsError` so a bad key or bank is not shown as an outage.
 - Frontend polls every 30 seconds while the tab is visible.
+- The shared rail and tab icon maps the SDK's `size` prop to SVG width and height; SVG does not support a `size` attribute.
